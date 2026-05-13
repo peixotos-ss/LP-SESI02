@@ -34,7 +34,7 @@ nav{
     width:100% ;
     position: fixed;
     top: 0;
-    background-color: #D9D9D9;
+    background-color: var(--bmw-white);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -87,17 +87,53 @@ section{
     height: auto;
 }
 #s1{
-    background-image: url(../assets/images/bg);
+    background-image: url(../assets/images/bg.png);
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
 }
 @media(width<=1000px){
     .navwords{
         display: none;
     }
+    #s1{background-image: url(../assets/images/bgmobile.jpg);}
 }
     
 
-    
+h1{
+    font-size: 160px;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    text-transform: uppercase;
+    text-shadow: 0px 3px 10px var(--bmw-graphite);
+    letter-spacing: 5px;
+    width: 100%;
+    text-align: center;
+    animation: esquerda 2s ease-in-out;
+
+}
+@keyframes esquerda{
+    0%{
+        transform: translateX(-100px);
+        opacity: 0;
+
+    }
+}
+h2{
+    font-size: 2vw;
+    text-shadow: 0px 3px 10px var(--bmw-graphite);
+    letter-spacing: 2px;
+    text-align: center;
+    width: 100%;
+    animation: direita 2s ease-in-out;
+}
+@keyframes direita{
+    0%{
+        transform: translateX(100px);
+        opacity: 0;
+    }}  

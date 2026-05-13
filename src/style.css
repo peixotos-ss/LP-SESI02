@@ -1,139 +1,286 @@
 :root{
-    --text: #ffff;
+    --text: #ffffff;
     --bg: #1F1F1F;
+
     --bmw-black: #0A0A0A;
     --bmw-graphite: #1C1F26;
     --bmw-blue: #0046AD;
     --bmw-silver: #6C7A89;
     --bmw-white: #F5F7FA;
-    --font:"Archivo Black", sans-serif;
- 
+
+    --font: "Archivo Black", sans-serif;
 }
 
-
+/* =========================
+   RESET
+========================= */
 
 *{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     scroll-behavior: smooth;
-
 }
+
+/* =========================
+   BODY
+========================= */
+
 body{
     font-family: var(--font);
     background-color: var(--bg);
     color: var(--text);
+    overflow-x: hidden;
 }
+
+/* =========================
+   SECTIONS
+========================= */
 
 section{
     min-height: 100vh;
-    height: auto;
-    
+    width: 100%;
 }
+
+/* =========================
+   NAVBAR
+========================= */
+
 nav{
-    width:100% ;
+    width: 100%;
+
     position: fixed;
     top: 0;
-    background-color: var(--bmw-white);
+    left: 0;
+
+    height: 70px;
+
+    background-color: rgba(245,247,250,0.95);
+    backdrop-filter: blur(10px);
+
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2vw;
-    height: 100px;
+
+    gap: 12px;
+
     z-index: 999;
+
     animation: decima 1s ease-in-out;
-    transition: all 1s ease-in-out;
+    transition: all 0.3s ease;
 }
+
 nav.sc{
-    background-color: var(--bmw-blue);
+    background-color: rgba(0,70,173,0.95);
 }
+
 @keyframes decima{
     0%{
         transform: translateY(-100px);
-        }
+    }
+
+    100%{
+        transform: translateY(0);
+    }
 }
+
 .navitems{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+
+    gap: 6px;
+
     background-color: var(--bmw-silver);
-    padding: 10px;
-    border-radius: 999px;    
+
+    padding: 6px 12px;
+
+    border-radius: 30px;
+
+    transition: 0.3s ease;
+}
+
+.navitems:hover{
+    cursor: pointer;
+    transform: scale(1.05);
 }
 
 .navitems img{
-    width: 30px;
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
 
-}
-.navitems:hover{
-    cursor: pointer;
-}
+/* =========================
+   LINKS
+========================= */
+
 a{
     color: inherit;
     text-decoration: none;
-    font-size: 1vw;
-    letter-spacing: 7px;
-    opacity: 0.8;
-    transition: all 200ms linear;
-    font-weight: 700    ;
+
+    font-size: 14px;
+    font-weight: 700;
+
+    letter-spacing: 2px;
+
+    opacity: 0.85;
+
+    transition: 0.2s ease;
 }
+
 a:hover{
     opacity: 1;
-    text-shadow: 0px 3px 10px var(--text);
+    text-shadow: 0px 3px 10px rgba(255,255,255,0.6);
 }
-section{
-    min-height: 100vh;
-    height: auto;
-}
+
+/* =========================
+   HERO SECTION
+========================= */
+
 #s1{
-    background-image: url(../assets/images/bg.png);
+    background-image: url("/assets/images/bg.png");
+
     background-size: cover;
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
+
+    /* FIX IPHONE */
+    background-attachment: scroll;
+
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+
+    padding: 100px 20px 40px 20px;
 }
-@media(width<=1000px){
-    .navwords{
-        display: none;
-    }
-    #s1{background-image: url(../assets/images/bgmobile.jpg);}
-}
-    
+
+/* =========================
+   TITLES
+========================= */
 
 h1{
-    font-size: 160px;
-    word-break: break-word;
-    overflow-wrap: break-word;
+    font-size: 120px;
+
     text-transform: uppercase;
-    text-shadow: 0px 3px 10px var(--bmw-graphite);
-    letter-spacing: 5px;
-    width: 100%;
+
     text-align: center;
+
+    letter-spacing: 4px;
+
+    text-shadow: 0px 3px 10px var(--bmw-graphite);
+
     animation: esquerda 2s ease-in-out;
 
+    line-height: 1;
 }
+
 @keyframes esquerda{
     0%{
         transform: translateX(-100px);
         opacity: 0;
+    }
 
+    100%{
+        transform: translateX(0);
+        opacity: 1;
     }
 }
+
 h2{
-    font-size: 2vw;
-    text-shadow: 0px 3px 10px var(--bmw-graphite);
-    letter-spacing: 2px;
+    font-size: 28px;
+
     text-align: center;
-    width: 100%;
+
+    letter-spacing: 2px;
+
+    text-shadow: 0px 3px 10px var(--bmw-graphite);
+
     animation: direita 2s ease-in-out;
 }
+
 @keyframes direita{
     0%{
         transform: translateX(100px);
         opacity: 0;
-    }}  
+    }
+
+    100%{
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* =========================
+   RESPONSIVO
+========================= */
+
+@media (max-width: 1000px){
+
+    nav{
+        height: 60px;
+        gap: 8px;
+        padding: 0 10px;
+    }
+
+    .navitems{
+        padding: 5px 10px;
+        border-radius: 20px;
+    }
+
+    .navitems img{
+        width: 18px;
+        height: 18px;
+    }
+
+    .navwords{
+        display: none;
+    }
+
+    a{
+        font-size: 12px;
+        letter-spacing: 1px;
+    }
+
+    #s1{
+        background-image: url("/assets/images/bgmobile.jpg");
+
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    h1{
+        font-size: 58px;
+        padding: 0 10px;
+    }
+
+    h2{
+        font-size: 18px;
+        padding: 0 20px;
+    }
+}
+
+/* =========================
+   MOBILE PEQUENO
+========================= */
+
+@media (max-width: 500px){
+
+    nav{
+        gap: 6px;
+    }
+
+    .navitems{
+        padding: 4px 8px;
+    }
+
+    h1{
+        font-size: 42px;
+    }
+
+    h2{
+        font-size: 15px;
+    }
+}

@@ -11,9 +11,7 @@
     --font: "Archivo Black", sans-serif;
 }
 
-/* =========================
-   RESET
-========================= */
+
 
 *{
     margin: 0;
@@ -22,9 +20,7 @@
     scroll-behavior: smooth;
 }
 
-/* =========================
-   BODY
-========================= */
+
 
 body{
     font-family: var(--font);
@@ -33,18 +29,14 @@ body{
     overflow-x: hidden;
 }
 
-/* =========================
-   SECTIONS
-========================= */
+
 
 section{
     min-height: 100vh;
     width: 100%;
 }
 
-/* =========================
-   NAVBAR
-========================= */
+
 
 nav{
     width: 100%;
@@ -111,9 +103,7 @@ nav.sc{
     object-fit: contain;
 }
 
-/* =========================
-   LINKS
-========================= */
+
 
 a{
     color: inherit;
@@ -134,9 +124,7 @@ a:hover{
     text-shadow: 0px 3px 10px rgba(255,255,255,0.6);
 }
 
-/* =========================
-   HERO SECTION
-========================= */
+
 
 #s1{
     background-image: url("/assets/images/bg.png");
@@ -144,9 +132,9 @@ a:hover{
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
-    /* FIX IPHONE */
-    background-attachment: scroll;
+    background-attachment: fixed;
+    
+    
 
     display: flex;
     align-items: center;
@@ -156,9 +144,7 @@ a:hover{
     padding: 100px 20px 40px 20px;
 }
 
-/* =========================
-   TITLES
-========================= */
+
 
 h1{
     font-size: 120px;
@@ -212,9 +198,7 @@ h2{
     }
 }
 
-/* =========================
-   RESPONSIVO
-========================= */
+
 
 @media (max-width: 1000px){
 
@@ -262,11 +246,86 @@ h2{
     }
 }
 
-/* =========================
-   MOBILE PEQUENO
-========================= */
 
-@media (max-width: 500px){
+    #s3{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+iframe{
+    border-radius: 15px;
+    box-shadow: 0px 5px 0px black;
+}
+footer {
+    position: fixed; 
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%); 
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 16px;  
+    background-color: var(--light-green);
+    border-radius: 9999px;
+    width: fit-content; 
+    z-index: 999;
+
+    animation: fromBottom 500ms ease-in-out;
+    transition: all 200ms ease-in-out;
+}
+
+footer.ft {
+    background-color: var(--tropical-teal);
+}
+
+@keyframes fromBottom {
+    0% {
+        transform: translateY(100px) translateX(-50%);
+    }
+    100% {
+        transform: translateY(0px) translateX(-50%);
+    }
+}
+
+
+footer a{
+    transition: all 100ms ease-in-out;
+}
+
+footer a:hover{
+    transform: scale(1.1);
+}
+#s2{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 50px;
+    min-height: 70vh;
+}
+.card{
+    width: 300px;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(200px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.card.visible{
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+
+
+@media (width <= 1000px){
 
     nav{
         gap: 6px;

@@ -33,3 +33,12 @@ const observer = new IntersectionObserver((entries) => {
 }, {threshold: 0.2});
 
 observer.observe(document.querySelector('#s2'))  ;
+function enviar(){
+    const nome = document.getElementById('nome').value
+    const assunto = document.getElementById('assunto').value
+
+    // montar mensagem
+    const mensagem=`gostaria de entrar em contato \n\nNome: ${nome}\nAssunto: ${assunto}`
+    const msg= encodeURIComponent(mensagem)
+    window.open
+}

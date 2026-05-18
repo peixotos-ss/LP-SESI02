@@ -81,7 +81,216 @@
                 referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </section>
         <section id="s4">
-            <h1>fashbfsahfb</h1>
+            <div>
+            <h3>contato</h3>
+            <div>saturno conteiner
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+<script>
+        const container = document.getElementById('bmw-container');
+        const W = container.clientWidth;
+        const H = container.clientHeight;
+
+        /* Renderer — alpha:true = fundo 100% transparente */
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(W, H);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setClearColor(0x000000, 0);
+        renderer.shadowMap.enabled = true;
+        container.appendChild(renderer.domElement);
+
+        const scene = new THREE.Scene();
+
+        const camera = new THREE.PerspectiveCamera(45, W / H, 0.1, 1000);
+        camera.position.set(0, 12, 32);
+        camera.lookAt(0, 0, 0);
+
+        /* Luzes - Estilo Showroom/Estúdio */
+        scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+        const studioLight = new THREE.DirectionalLight(0xffffff, 1.8);
+        studioLight.position.set(20, 30, 20);
+        studioLight.castShadow = true;
+        scene.add(studioLight);
+
+        /* Textura do elemento central (Estilo BMW M) via canvas */
+        const texCanvas = document.createElement('canvas');
+        texCanvas.width = 1024; texCanvas.height = 512;
+        const ctx = texCanvas.getContext('2d');
+
+        // Faixas de cor da BMW (Azul Claro, Azul Escuro, Vermelho, Branco, Preto)
+        const faixas = [
+            { y: 0.00, h: 0.15, c: '#0066b2' }, // Azul Claro M
+            { y: 0.15, h: 0.10, c: '#00235d' }, // Azul Escuro M
+            { y: 0.25, h: 0.15, c: '#e3000b' }, // Vermelho M
+            { y: 0.40, h: 0.20, c: '#ffffff' }, // Branco Alpin
+            { y: 0.60, h: 0.15, c: '#1c1c1c' }, // Preto Safira
+            { y: 0.75, h: 0.15, c: '#0066b2' }, // Repetição harmônica
+            { y: 0.90, h: 0.10, c: '#e3000b' },
+        ];
+        
+        faixas.forEach(f => {
+            ctx.fillStyle = f.c;
+            ctx.fillRect(0, f.y * 512, 1024, f.h * 512 + 2);
+        });
+
+        // Adiciona um efeito metálico/escovado texturizado macio
+        for (let i = 0; i < 4000; i++) {
+            const x = Math.random() * 1024;
+            const y = Math.random() * 512;
+            const a = Math.random() * 0.12;
+            ctx.fillStyle = `rgba(255,255,255,${a})`;
+            ctx.fillRect(x, y, Math.random() * 60 + 10, Math.random() * 1.5 + 0.5);
+        }
+        const bmwTex = new THREE.CanvasTexture(texCanvas);
+
+        /* Elemento Central - Esfera M Sport */
+        const coreSphere = new THREE.Mesh(
+            new THREE.SphereGeometry(6, 64, 64),
+            new THREE.MeshStandardMaterial({ map: bmwTex, roughness: 0.2, metalness: 0.8 })
+        );
+        coreSphere.rotation.z = 0.2;
+        coreSphere.castShadow = true;
+        scene.add(coreSphere);
+
+        /* Anéis de Luz Construtivos (Inspirado nos faróis Angel Eyes / Cores M) */
+        function criarAnelNeon(inner, outer, cor, opacidade) {
+            const geo = new THREE.RingGeometry(inner, outer, 200);
+            const mat = new THREE.MeshBasicMaterial({
+                color: cor,
+                side: THREE.DoubleSide,
+                transparent: true,
+                opacity: opacidade
+            });
+            const ring = new THREE.Mesh(geo, mat);
+            ring.rotation.x = Math.PI / 2;
+            return ring;
+        }
+
+        const ringGroup = new THREE.Group();
+        ringGroup.rotation.z = 0.2;
+        
+        // Linhas de contorno futuristas com as cores da marca
+        ringGroup.add(criarAnelNeon(7.5, 7.6, 0x0066b2, 0.85)); // Azul Claro
+        ringGroup.add(criarAnelNeon(8.0, 8.1, 0x00235d, 0.70)); // Azul Escuro
+        ringGroup.add(criarAnelNeon(8.5, 8.6, 0xe3000b, 0.90)); // Vermelho
+        ringGroup.add(criarAnelNeon(9.5, 9.55, 0xffffff, 0.40)); // Brilho Branco Externo
+        ringGroup.add(criarAnelNeon(11.0, 11.05, 0x0066b2, 0.30)); 
+        scene.add(ringGroup);
+
+        /* Satélites Tecnológicos (Esferas Cromadas de Performance) */
+        function criarNodeTech(raio, dist, velocidade, cor, inclinacao) {
+            const mesh = new THREE.Mesh(
+                new THREE.SphereGeometry(raio, 32, 32),
+                new THREE.MeshStandardMaterial({ color: cor, roughness: 0.1, metalness: 0.9 })
+            );
+            const pivot = new THREE.Object3D();
+            pivot.rotation.x = inclinacao;
+            mesh.position.x = dist;
+            pivot.add(mesh);
+            scene.add(pivot);
+            return { pivot, velocidade };
+        }
+
+        const nodes = [
+            criarNodeTech(0.35, 14, 1.8, 0xffffff, 0.15), // Prata Cromado
+            criarNodeTech(0.25, 17, 1.2, 0x0066b2, -0.10), // Azul M
+            criarNodeTech(0.45, 21, 0.8, 0x1c1c1c, 0.25), // Preto Carbono
+        ];
+
+        /* ── Controle de rotação pelo mouse e touch ── */
+        let isDragging = false;
+        let prevX = 0, prevY = 0;
+        let rotX = 0, rotY = 0;
+        let velX = 0, velY = 0;
+
+        /* Mouse */
+        container.addEventListener('mousedown', e => {
+            isDragging = true;
+            prevX = e.clientX;
+            prevY = e.clientY;
+            velX = 0; velY = 0;
+        });
+        window.addEventListener('mouseup', () => { isDragging = false; });
+        window.addEventListener('mousemove', e => {
+            if (!isDragging) return;
+            const dx = e.clientX - prevX;
+            const dy = e.clientY - prevY;
+            velX = dx * 0.005;
+            velY = dy * 0.003;
+            rotY += velX;
+            rotX += velY;
+            prevX = e.clientX;
+            prevY = e.clientY;
+        });
+
+        /* Touch (mobile) */
+        container.addEventListener('touchstart', e => {
+            isDragging = true;
+            prevX = e.touches[0].clientX;
+            prevY = e.touches[0].clientY;
+            velX = 0; velY = 0;
+        });
+        container.addEventListener('touchend', () => { isDragging = false; });
+        container.addEventListener('touchmove', e => {
+            if (!isDragging) return;
+            const dx = e.touches[0].clientX - prevX;
+            const dy = e.touches[0].clientY - prevY;
+            velX = dx * 0.005;
+            velY = dy * 0.003;
+            rotY += velX;
+            rotX += velY;
+            prevX = e.touches[0].clientX;
+            prevY = e.touches[0].clientY;
+        });
+
+        /* Loop de animação */
+        let t = 0;
+        function animar() {
+            requestAnimationFrame(animar);
+            t += 0.004;
+
+            if (!isDragging) {
+                /* Inércia */
+                velX *= 0.94;
+                velY *= 0.94;
+                rotY += velX;
+                rotX += velY;
+                /* Rotação constante premium de showroom */
+                rotY += 0.002;
+            }
+
+            /* Limita inclinação vertical */
+            rotX = Math.max(-0.6, Math.min(0.6, rotX));
+
+            coreSphere.rotation.y = rotY;
+            coreSphere.rotation.x = rotX;
+            ringGroup.rotation.y = rotY;
+            ringGroup.rotation.x = rotX;
+
+            nodes.forEach(n => { n.pivot.rotation.y = t * n.velocidade; });
+
+            renderer.render(scene, camera);
+        }
+        animar();
+
+        /* Responsivo */
+        window.addEventListener('resize', () => {
+            const nW = container.clientWidth;
+            const nH = container.clientHeight;
+            camera.aspect = nW / nH;
+            camera.updateProjectionMatrix();
+            renderer.setSize(nW, nH);
+        });
+</script>
+            </div>
+            </div>
+            <div class="formulario">
+                <label for="nome">Nome: </label>
+                <input type="text" id="nome" placeholder="digite seu nome">
+                <label for="assunto">Mensagem</label>
+                <textarea id="assunto" placeholder="digite sua Mensagem"></textarea>
+                <button onclick="enviar()">ENVIAR</button>
+            </div>
         </section>
 
     </main>
